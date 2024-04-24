@@ -7,20 +7,58 @@
     <title>Videogame</title>
 </head>
 <body>
+
+
+        <div class="niveles">
+            <div>
+                <input type="radio" id="beginer" name="level" value="beginer" checked />
+                <label for="beginer">Beginer</label>
+              </div>
+            
+              <div>
+                <input type="radio" id="aficionado" name="level" value="aficionado" />
+                <label for="aficionado">Aficionado</label>
+              </div>
+            
+              <div>
+                <input type="radio" id="profesional" name="level" value="profesional" />
+                <label for="profesional">Profesional</label>
+              </div>
+        </div>
+
+
+
+
     <div class="game-container">
+
+
         <canvas id="game"></canvas>
         <div class="btns">
-            <button id="up">Arriba</button>
-            <button id="left">Izquierda</button>
-            <button id="right">Derecha</button>
-            <button id="down">Abajo</button>
+            <button  id="up">Arriba</button>
+            <button  id="left">Izquierda</button>
+            <button  id="right">Derecha</button>
+            <button  id="down">Abajo</button>
+            <button id="jugar">Play</button>
         </div>
         <div class="messages">
-            <p>Vidas:</p>
-            <p>Tiempo:</p>
-            <p>Record:</p>
+            <p>Vidas: <span id="vidas"></span></p>
+            <p>Tiempo:⏰ <span id="tiempo"></span></p>
+            <p>Record: ⛷️<span id="record"></span></p>
+            <div class="btnsalir">
+            <button id="reset">Limpiar Record</button>
+                
+                <a href="https://www.google.com/" id="salir">Salir</a> 
+            </div>
         </div>
+        
     </div>
+<!--     <div class="screen" id="finalScreen">
+        Quieres seguir jugango
+        <div class="finalButtons">
+            <button>Si</button>
+            <button>No</button>
+        </div>
+    </div> -->
     <script src="maps.js"></script>
     <script src="game.js"></script>
 </body>

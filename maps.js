@@ -5,49 +5,180 @@
 
 const emojis = {
     '-': ' ',
-    'O': '🌈',
+    'O': '🌈', //punto de inicio del recorrido
     'X': '🌳',
-    'I': '🥇',
+/*    'X': '💣', */
+    
+    'I': '🥇', //punto final del recorrido 
     'PLAYER': '🐶',
     'BOMB_COLLISION': '🔥',
     'GAME_OVER': '👎',
     'WIN': '🏆',
+    'BALL': '⚽'
   };
   
   const maps = [];
   maps.push(`
-    IXXXXXXXXX
-    -XXXXXXXXX
-    -XXXXXXXXX
-    -XXXXXXXXX
-    -XXXXXXXXX
-    -XXXXXXXXX
-    -XXXXXXXXX
-    -XXXXXXXXX
-    -XXXXXXXXX
-    OXXXXXXXXX
+  X----I
+  X-XXXX
+  X---X-
+  XXX-X-
+  XX----
+  O--XXX
   `);
   maps.push(`
-    O--XXXXXXX
-    X--XXXXXXX
-    XX----XXXX
-    X--XX-XXXX
-    X-XXX--XXX
-    X-XXXX-XXX
-    XX--XX--XX
-    XX--XXX-XX
-    XXXX---IXX
-    XXXXXXXXXX
-    `);
-  maps.push(`
-    I-----XXXX
-    XXXXX-XXXX
-    XX----XXXX
-    XX-XXXXXXX
-    XX-----XXX
-    XXXXXX-XXX
-    XX-----XXX
-    XX-XXXXXXX
-    XX-----OXX
-    XXXXXXXXXX
+  ---XXO
+  -X-XX-
+  IX-X--
+  -X-X-X
+  -X-X--
+  -----X
   `);
+  maps.push(`
+  IXXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  -XXXXXXXXX
+  OXXXXXXXXX
+`);
+maps.push(`
+  O--XXXXXXX
+  X--XXXXXXX
+  XX----XXXX
+  X--XX-XXXX
+  X-XXX--XXX
+  X-XXXX-XXX
+  XX--XX--XX
+  XX--XXX-XX
+  XXXX---IXX
+  XXXXXXXXXX
+  `);
+maps.push(`
+  I-----XXXX
+  XXXXX-XXXX
+  XX----XXXX
+  XX-XXXXXXX
+  XX-----XXX
+  XXXXXX-XXX
+  XX-----XXX
+  XX-XXXXXXX
+  XX-----OXX
+  XXXXXXXXXX
+`);
+  maps.push(`
+    I-----XXXXXXXXXXXXXX
+    XXXXX-XXXXXXXXXXXXXX
+    XX----XXXXXXXXXXXXXX
+    XX-XXXXXXXXXXXXXXXXX
+    XX-----XXXXXXXXXXXXX
+    XXXXXX-XXXXXXXXXXXXX
+    XX-----XXXXXXXXXXXXX
+    XX-XXXXXXXXXXXXXXXXX
+    XX---------------XXX
+    XXXXXXXXXXX-----XXXX
+    XXXXXXX------XXXXXXX
+    XXXXXX---XXXXXXXXXXX
+    XXX----XXXXXXXXXXXXX
+    XXX-XXXXX-------XXXX
+    XXX-XX-----XXX---XXX
+    XXX-XX-XXXXXXX--OXXX
+    XXX-XX-XXXXXXXXXXXXX
+    XXX-XX-XXXXXXXXXXXXX
+    XXX----XXXXXXXXXXXXX
+    XXXXXXXXXXXXXXXXXXXX
+  `); 
+  /* maps.push(`
+  I-------------------
+  XXXXXXXXXXXXXXXXXXX-
+  XXX-----------------
+  XXX-XXXXXXXXXXXXXXXX
+  XXX-XXXXXXXXXXXXXXXX
+  XXX--------------XXO
+  XXXXXXXXXXXXXXXX-XX-
+  XXXXXXXXXXXXXXXX-XX-
+  XXXXXXXXXXXXXXXX-XX-
+  XXXX-------------XX-
+  XXXX-XXXXXXXXXXXXXX-
+  XXXX-XXXXXXXXXXXXXX-
+  XXXX----------XXXXX-
+  XXXXXXXXXXXXX-XXXXX-
+  XXXXXXXXXXXXX-XXXXX-
+  XXXXXXXXXXXXX-XXXXX-
+  XX------------XXXXX-
+  XX-XXXXXXXXXXXXXXXX-
+  XX-XXXXXXXXXXXXXXXX-
+  XX------------------
+`);
+maps.push(`
+O----------------XXX	
+XXXXXXXXXXXXXXX-----	
+X-----------XXXXXXX-	
+X-XXXXXXXXX-XXXXXXX-	
+X-XXXXXXXXX-X---XXX-	
+X-XXXXXXXXX-X-X-XXX-	
+X-XXX----XX-X-X-----	
+X-XXX-XX-XX-X-XXXXXX	
+X-XXX-XX-XX-X-XXXXXX	
+--XXX-XX----X-XXXXXX	
+-XXXX-XXXXXXX-XXXXXX	
+--XXX---------XXXXXX	
+X-XXXXXXXXXXXXXXXXXX	
+X-XXXXXXXXXXX----XXX	
+X-XXX---X---X-XX-XXX	
+X-XXX-X-X-X-X-X--XXX	
+X-----X-X-X-X-X-XXXX	
+XXXXXXX-X-X-X-X-----	
+XXXXXXX---X---XXXXX-	
+XXXXXXXXXXXXXXXXXXXI	
+
+`);
+maps.push(`
+O--XXXXXXXXXXXXXX---	
+X----XXXXXXXXXXXX-X-	
+XXX----XXXXXXXXXX-X-	
+XXXXX----XXXXXXXX-X-	
+XXXXXXX----XXXXXX-X-	
+X----XXXX----XXXX-X-	
+X-XX-XXXXXX----XX-X-	
+X-XX-XXXXXXXX-----X-	
+X-XX-------XXXXXXXX-	
+X-XXXXXXXX-XXXXXXXX-	
+X-XXXX---X----------	
+X-XXXX-XXXXXXXXXXXXX	
+X-X----XX----XX----X	
+X-X-XXXXX-XX-XX-XX-X	
+X-X-XXXXX-XX-XX-XX-X	
+X---------XX-XX-XX-X	
+XXXXXX-XXXXX----XX-X	
+XXXXXX---XXXXXXXXX-X	
+XXXXXXXX-XXXXXXXXX-X	
+XXXXXXXX-XXXXXXXXX-I	
+`);
+
+maps.push(`
+O-----------------XX
+XXXXXXXXXXXXXXXXX-XX
+XXXXXXXXXXXXXXXXX--X
+XX-------------XXX-X
+XX--XXXXXXXXX---XX-X
+XX---XXXXXXXXX---X-X
+XXX--XX-----XXX--X-X
+XXXX-XX-XXX-XXXX-X-X
+XXXX-XX-XXX-XX---X-X
+XXXX-XX-XXX-XX-XXX-X
+XXXX-XX-XXX-XX-XXX-X
+XXXX-XX-XXX-XX-----X
+-----XX-XXX-XXXXXXXX
+-XXXXXX-XXX-XXXX---X
+-X------XXX-XXXX-X-X
+-X-XXXXXXXX------X-X
+-X---XXXXXXXXXXXXX-X
+-XXX-XXXXXXXXXXXX--X
+-XXX-XXXXXXXXXXXX-XX
+-----XXXXXXXXXXXX--I
+`); */

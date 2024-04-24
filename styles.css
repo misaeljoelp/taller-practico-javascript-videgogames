@@ -9,6 +9,15 @@ body{
     color: #fff;  
     font-size: 1rem;
 }
+.niveles{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    width: 300px;
+    margin: 0 auto;
+}
+
 .game-container{
     display: flex;
     align-items: center;
@@ -21,6 +30,8 @@ canvas{
     border: 5px solid #ff6600;
     border-radius: 8px;
     background-color: #feff9d;
+    background-image: url(https://i.ibb.co/cxXhzdF/andy.jpg);
+    background-size:cover;
 }
 .btns{
     display: flex;
@@ -29,20 +40,28 @@ canvas{
     margin: 0 auto;
     width: 100%;
 }
-button{
-    background-color: #fdef05;
+a{
+    text-decoration: none;
+}
+button, #salir{
+    background-color: #bbc52d;
     border-radius: 8px;
     border-color:  #ff6600;
     font-family: inherit;
     margin: 0;
     padding: 5px 20px;
     width: 100px;
-
 }
 button:not(:last-child) {
     margin-right: 10px;
   }
-
+#reset{
+  background-color: #bbc52d;
+  width: 150px;
+}
+button:hover{
+  cursor: pointer;
+}
 .messages{
     display: flex;
     flex-wrap: wrap;
@@ -50,13 +69,24 @@ button:not(:last-child) {
     width: 80%;
     max-width: 460px;
 }
-p {
+#jugar{
+    background-color: rgb(94, 255, 0);
+}
+p{
     display: block;
     margin: 0;
     width: 100%;
   }
-
+  .btnsalir{
+    margin-top: 10px;
+  }
+  #salir{
+    border: 1px solid orange;
+  }
+/* .screen{
+    display: none;
+} */
   @media (max-width: 440px) {
-    button { margin-top: 25px; }
+    button { margin-top: 5px; }
     #up, #down { margin-left: 100%; margin-right: 100%; }
   }
