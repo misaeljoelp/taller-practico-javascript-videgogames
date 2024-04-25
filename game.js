@@ -86,21 +86,19 @@ function startGame() {//muestra en pantalla lo que hay en el mapa bidimensional 
 
 function setCanvasSize() {//establece el tamaño de la pantalla y de cada pequeña parte de la pantalla según tipo de jugador
     if (window.innerWidth > window.innerHeight)
-        canvasSize = window.innerHeight * 0.7
+        canvasSize = window.innerHeight * 0.8
     else
-        canvasSize = window.innerWidth * 0.7
+        canvasSize = window.innerWidth * 0.8
 //Me aseguro de trabajar con números enteros
 if (nivelJugador === 'profesional'){
     elementSize = canvasSize / 20
     elementSize = Math.floor(elementSize)
     canvasSize = elementSize * 20
-    console.log('set canvas profesional')
 }
 if (nivelJugador === 'aficionado'){
     elementSize = canvasSize / 10
     elementSize = Math.floor(elementSize)
     canvasSize = elementSize * 10
-    console.log('set canvas profesional')
 }
 if (nivelJugador === 'beginer'){
     elementSize = canvasSize / 6
@@ -126,11 +124,9 @@ function play() {//movimiento inicial del juego y reinicio por pérdida de vidas
     } else
     if (mapa){
         mapa[positions.playerX][positions.playerY] = 'PLAYER'
-        console.log(timeStart)
         estoyJugando = true
         cambiarColorBotones() 
         if (!timeStart) {
-            console.log('inicio')
             timeStart = Date.now()
             timeInterval = setInterval(mostrarTiempo,200)
         }
@@ -201,28 +197,13 @@ function evaluarRecord() {//establece el record inicial, o el que logre en cada 
     if (!recordActual){
         recordActual = tiempoTotal
         localStorage.setItem('record_time', tiempoTotal)
-        game.font = '30px impact'
-        game.fillText('INCREIBLE ERES EL PRIMERO',150, 60)
-        game.font = '150px impact'
-        game.fillText('🏆',130, 100)
-        game.font = '30px impact'
-        game.fillText('DESEAS REINICIAR?',150, 380)
+        letrerosDeAviso('primerRecord')
     } else if (tiempoTotal < recordActual){
         recordActual = tiempoTotal
         localStorage.setItem('record_time', tiempoTotal)
-        game.font = '30px impact'
-        game.fillText('LO HICISTE DE NUEVO!!!!!',150, 60)
-        game.font = '150px impact'
-        game.fillText('🏆🥇🥈🥉',130, 100)
-        game.font = '30px impact'
-        game.fillText('DESEAS REINICIAR?',150, 380)
+        letrerosDeAviso('nuevoRecord')
     } else{
-        game.font = '30px impact'
-        game.fillText('NO TE DESANIMES!!',150, 60)
-        game.font = '150px impact'
-        game.fillText('🏃‍♂️',130, 100)
-        game.font = '30px impact'
-        game.fillText('DESEAS REINICIAR?',150, 380)
+        letrerosDeAviso('sinRecord')
     }
 
 }
@@ -230,15 +211,52 @@ function gameFail() {//procedimiento cuando se pierden las tres vidas
     estoyJugando = false
     cambiarColorBotones()
     btnPlay.innerHTML= 'REINICIAR'
-    game.clearRect(0,0,canvasSize, canvasSize)
-    game.font = '30px impact'
-    game.fillText('LO HACES BIEN',150, 60)
-    game.font = '150px impact'
-    game.fillText('🙈',130, 100)
-    game.font = '30px impact'
-    game.fillText('DESEAS REINICIAR?',150, 380)
+    letrerosDeAviso('perdioSusVidas')
 }
 
+function letrerosDeAviso(motivo) {
+    let tamañoFuente
+    if (nivelJugador == 'beginer')
+        tamañoFuente = elementSize /3
+    else if (nivelJugador == 'aficionado')
+             tamañoFuente = elementSize / 2
+        else if (nivelJugador == 'profesional')
+            tamañoFuente = elementSize
+            game.clearRect(0,0,canvasSize, canvasSize)
+
+    if (motivo === 'primerRecord'){
+        game.font = tamañoFuente + 'px impact'
+        game.fillText('INCREIBLE ERES EL PRIMERO',canvasSize/3, canvasSize/6)
+        game.font = canvasSize/5 + 'px impact' 
+        game.fillText('🏆',canvasSize/3, canvasSize/2)
+        game.font = tamañoFuente + 'px impact'
+        game.fillText('DESEAS REINICIAR?',canvasSize/3, canvasSize * 0.8)
+    }
+    if (motivo === 'nuevoRecord'){
+        game.font = tamañoFuente + 'px impact'
+        game.fillText('LO HICISTE DE NUEVO!!!!!',canvasSize/3, canvasSize/6)
+        game.font = canvasSize/5 + 'px impact' 
+        game.fillText('🥇',canvasSize/3, canvasSize/2)
+        game.font = tamañoFuente + 'px impact'
+        game.fillText('DESEAS REINICIAR?',canvasSize/3, canvasSize * 0.8)
+    }
+    if (motivo === 'sinRecord'){
+        game.font = tamañoFuente + 'px impact'
+        game.fillText('NO TE DESANIMES!!!',canvasSize/3, canvasSize/6)
+        game.font = canvasSize/5 + 'px impact' 
+        game.fillText('🏃‍♂️',canvasSize/3, canvasSize/2)
+        game.font = tamañoFuente + 'px impact'
+        game.fillText('DESEAS REINICIAR?',canvasSize/3, canvasSize * 0.8)
+    }
+    if (motivo === 'perdioSusVidas'){
+        game.font = tamañoFuente + 'px impact'
+        game.fillText('SIGUE INTENTANDO',canvasSize/3, canvasSize/6)
+        game.font = canvasSize/5 + 'px impact' 
+        game.fillText('🙈',canvasSize/3, canvasSize/2)
+        game.font = tamañoFuente + 'px impact'
+        game.fillText('DESEAS REINICIAR?',canvasSize/3, canvasSize * 0.8)
+    }
+}
 //A cada movimiento se evalua si cae en bombas, si llega a un nivel superior, si llega al último nivel, si vuelve a su posición de inicio o si va por buen camino
 function evaluatePlayerMovement(move) {//evalua si cae en un lugar prohibido una o mas veces
     if (mapa[positions.playerX][positions.playerY] == 'X' || mapa[positions.playerX][positions.playerY] == 'BOMB_COLLISION') {
@@ -248,7 +266,6 @@ function evaluatePlayerMovement(move) {//evalua si cae en un lugar prohibido una
         positions.playerY = positions.inicioY
         mapa[positions.playerX][positions.playerY] = 'PLAYER'
         lives -= 1
-        /* console.log(lives) */
         if (lives === 0){
             gameFail()
             clearInterval(timeInterval)
@@ -368,6 +385,7 @@ function tipoNivelJuego() {
 function seleccionarBeginer() {
     level = 0
     tipoNivelJuego()
+    clearInterval(timeInterval)
     timeStart = undefined
     if (btnPlay.innerHTML == 'REINICIAR'){
         lives=3
@@ -377,6 +395,7 @@ function seleccionarBeginer() {
 function seleccionarAficionado() {
     level = 2
     tipoNivelJuego()
+    clearInterval(timeInterval)
     timeStart = undefined
     if (btnPlay.innerHTML == 'REINICIAR'){
         lives=3
@@ -386,6 +405,7 @@ function seleccionarAficionado() {
 function seleccionarProfesional() {
     level = 5
     tipoNivelJuego()
+    clearInterval(timeInterval)
     timeStart = undefined
     if (btnPlay.innerHTML == 'REINICIAR'){
         lives=3
